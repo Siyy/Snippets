@@ -22,14 +22,14 @@
 					<ToolTip>属性名</ToolTip>
 					<Default>MyProperty</Default>
 				</Literal>
-				<Literal>
+				<!--<Literal>
 					<ID>field</ID>
 					<ToolTip>支持此属性的变量</ToolTip>
 					<Default>_myProperty</Default>
-				</Literal>
+				</Literal>-->
 				<Literal>
 					<ID>caption</ID>
-					<ToolTip>字段标题</ToolTip>
+					<ToolTip>说明标签</ToolTip>
 					<Default>我的属性</Default>
 				</Literal>
 			</Declarations>
@@ -37,7 +37,7 @@
 				<![CDATA[/// <summary>
 	/// $caption$。
 	/// </summary>
-	private $type$ $field$; //$caption$。
+	private $type$ _$property$; //$caption$。
 	/// <summary>
 	/// $caption$。
 	/// </summary>
@@ -45,11 +45,11 @@
 	[Required(ErrorMessage="“$caption$”不能为空！")]
 	public $type$ $property$
 	{
-		get{return $field$;}
+		get{return _$property$;}
 		set
 		{
 			ValidateProperty("$property$", value);
-			$field$ = value;
+			_$property$ = value;
 			OnPropertyChanged("$property$");
 		}
 	}
