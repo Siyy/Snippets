@@ -51,7 +51,8 @@
 	[System.ComponentModel.Description("$caption$。")]
 	[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Advanced)]//在编辑面板（例如 Blend ）中如何显示。
 	//[System.ComponentModel.Browsable(false)]	//在属性面板（例如 VisualStudio）中隐藏。
-	public $type$ $property$
+	//[Newtonsoft.Json.JsonIgnore]
+		public $type$ $property$
 	{
 		get{return _$property$;}
 		set
