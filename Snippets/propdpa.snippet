@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+    <CodeSnippet Format="1.0.0">
+        <Header>
+            <Title>定义一个全能 DependencyProperty</Title>
+            <Shortcut>propdpa</Shortcut>
+            <Description>将 DependencyProperty 用作后备存储的属性（包括关联事件的）的代码段</Description>
+            <Author>Jiuyong</Author>
+            <SnippetTypes>
+                <SnippetType>Expansion</SnippetType>
+            </SnippetTypes>
+        </Header>
+        <Snippet>
+            <Declarations>
+                <Literal>
+                    <ID>type</ID>
+                    <ToolTip>属性类型</ToolTip>
+                    <Default>int</Default>
+                </Literal>
+                <Literal>
+                    <ID>property</ID>
+                    <ToolTip>属性名</ToolTip>
+                    <Default>MyProperty</Default>
+                </Literal>
+                <Literal>
+                    <ID>ownerClass</ID>
+                    <ToolTip>此属性的所属类。通常是在其中声明此属性的类。</ToolTip>
+                    <Default>ownerclass</Default>
+                </Literal>
+                <Literal>
+                    <ID>defaultValue</ID>
+                    <ToolTip>此属性的默认值。</ToolTip>
+                    <Default>0</Default>
+                </Literal>
+                <!--<Literal>
+                    <ID>minValue</ID>
+                    <ToolTip>此属性的最小值。</ToolTip>
+                    <Default>0</Default>
+                </Literal>
+                <Literal>
+                    <ID>maxValue</ID>
+                    <ToolTip>此属性的最大值。</ToolTip>
+                    <Default>1</Default>
+                </Literal>-->
+            </Declarations>
+            <Code Language="csharp">
+                <![CDATA[
+
+		#region $property$ 依赖项属性及相关事件
+
+		/// <summary>
+		/// 定义 $property$ 依赖项属性。
+		/// </summary>
+		public static readonly DependencyProperty $property$Property =
+			DependencyProperty.Register(
+				"$property$", typeof($type$), typeof($ownerClass$),
+				new FrameworkPropertyMetadata($defaultValue$, new PropertyChangedCallback(On$property$Changed),
+											  new CoerceValueCallback(Coerce$property$)));
+
+		/// <summary>
+		/// 读取或设置 $property$ 的值。
+		/// </summary>
+		public $type$ $property$
+		{
+			get
+			{
+				return ($type$)GetValue($property$Property);
+			}
+			set
+			{
+				SetValue($property$Property, value);
+			}
+		}
+
+		//const $type$ Min$property$ = -1, Max$property$ = +1;
+		private static object Coerce$property$(DependencyObject element, object value)
+		{
+			$type$ new$property$ = ($type$)value;
+			$ownerClass$ control = ($ownerClass$)element;
+
+			//TODO:实现对于异常赋值的取舍，例如（下列代码段示例代码）：
+			//new$property$ = Math.Max(Min$property$, Math.Min(Max$property$, new$property$));
+			//return new$property$;
+			throw new NotImplementedException("代码段生成 $ownerClass$的 $property$属性的异常值未做处理。");
+
+		}
+
+		private static void On$property$Changed(DependencyObject obj, DependencyPropertyChangedEventArgs args)
+		{
+			$ownerClass$ control = ($ownerClass$)obj;
+
+			RoutedPropertyChangedEventArgs<$type$> e = new RoutedPropertyChangedEventArgs<$type$>(
+				($type$)args.OldValue, ($type$)args.NewValue, $property$ChangedEvent);
+			control.On$property$Changed(e);
+		}
+
+		/// <summary>
+		/// 定义 $property$更改 路由事件。
+		/// </summary>
+		public static readonly RoutedEvent $property$ChangedEvent = EventManager.RegisterRoutedEvent(
+			"$property$Changed", RoutingStrategy.Bubble,
+			typeof(RoutedPropertyChangedEventHandler<$type$>), typeof($ownerClass$));
+
+		/// <summary>
+		/// 当 $property$ 值改变的时候发生。
+		/// </summary>
+		public event RoutedPropertyChangedEventHandler<$type$> $property$Changed
+		{
+			add
+			{
+				AddHandler($property$ChangedEvent, value);
+			}
+			remove
+			{
+				RemoveHandler($property$ChangedEvent, value);
+			}
+		}
+
+		/// <summary>
+		/// 引发特定的路由事件。在提供的 RoutedPropertyChangedEventArgs&lt;$type$&gt; 实例中标识要引发的 System.Windows.RoutedEvent（作为该事件数据的
+		/// System.Windows.RoutedEventArgs.RoutedEvent 属性）。
+		/// </summary>
+		/// <param name="args">一个 RoutedPropertyChangedEventArgs&lt;$type$&gt;，其中包含事件的旧值和新值等数据并标识要引发的事件。</param>
+		protected virtual void On$property$Changed(RoutedPropertyChangedEventArgs<$type$> args)
+		{
+			RaiseEvent(args);
+		}
+
+		#endregion]]>
+            </Code>
+        </Snippet>
+    </CodeSnippet>
+</CodeSnippets>
