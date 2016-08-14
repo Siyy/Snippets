@@ -60,6 +60,7 @@
 		get{return _$property$;}
 		set
 		{
+			OnPropertyChanging(nameof($property$));
 			ValidateProperty(nameof($property$), value);
 			_$property$ = value;
 			OnPropertyChanged(nameof($property$));
