@@ -1,10 +1,10 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
     <CodeSnippet Format="1.0.0">
         <Header>
-            <Title>Define a DependencyProperty</Title>
-            <Shortcut>propdp</Shortcut>
-            <Description>Code snippet for a property using DependencyProperty as the backing store</Description>
+            <Title>定义一个依赖属性。</Title>
+            <Shortcut>cn_propdp</Shortcut>
+            <Description>使用依赖属性作为后端存储的属性的代码片段。</Description>
             <Author>Microsoft Corporation</Author>
             <SnippetTypes>
                 <SnippetType>Expansion</SnippetType>
@@ -12,40 +12,61 @@
         </Header>
         <Snippet>
             <Declarations>
-                <Literal>
-                    <ID>type</ID>
-                    <ToolTip>Property Type</ToolTip>
-                    <Default>int</Default>
-                </Literal>
-                <Literal>
-                    <ID>property</ID>
-                    <ToolTip>Property Name</ToolTip>
-                    <Default>MyProperty</Default>
-                </Literal>
-                <Literal>
-                    <ID>ownerclass</ID>
-                    <ToolTip>The owning class of this Property.  Typically the class that it is declared in.</ToolTip>
-                    <Default>ownerclass</Default>
-                </Literal>
-                <Literal>
-                    <ID>defaultvalue</ID>
-                    <ToolTip>The default value for this property.</ToolTip>
-                    <Default>0</Default>
-                </Literal>
+	        <Literal>
+	          <ID>type</ID>
+	          <ToolTip>属性类型</ToolTip>
+	          <Default>int</Default>
+	        </Literal>
+	        <Literal>
+	          <ID>property</ID>
+	          <ToolTip>属性名</ToolTip>
+	          <Default>MyProperty</Default>
+	        </Literal>
+	        <Literal>
+	          <ID>ownerClass</ID>
+	          <ToolTip>此属性的所属类。通常是在其中声明此属性的类。</ToolTip>
+	          <Default>ownerclass</Default>
+	        </Literal>
+	        <Literal>
+	          <ID>defaultValue</ID>
+	          <ToolTip>此属性的默认值。</ToolTip>
+	          <Default>0</Default>
+	        </Literal>
+	        <Literal>
+	          <ID>caption</ID>
+	          <ToolTip>说明标签</ToolTip>
+	          <Default>我的属性</Default>
+	        </Literal>
             </Declarations>
             <Code Language="csharp">
                 <![CDATA[
+#region $type$ $property$ - $caption$ ： $defaultValue$
 
+/// <summary>
+/// $caption$。
+/// 默认值为 $defaultValue$ 。
+/// </summary>
+[
+//System.ComponentModel.DisplayName("可以在这里指定显示的标签，但是通常显示代码中使用的属性名更方便。")
+//,
+System.ComponentModel.Description("$caption$，默认值为 $defaultValue$ 。") 
+//,
+//System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Always)
+]
 public $type$ $property$
 {
-    get { return ($type$)GetValue($property$Property); }
-    set { SetValue($property$Property, value); }
+	get { return ($type$)GetValue($property$Property); }
+	set { SetValue($property$Property, value); }
 }
 
-// Using a DependencyProperty as the backing store for $property$.  This enables animation, styling, binding, etc...
-public static readonly DependencyProperty $property$Property = 
-    DependencyProperty.Register("$property$", typeof($type$), typeof($ownerclass$), new PropertyMetadata($defaultvalue$));
+/// <summary>
+/// 使用 <code>$property$Property</code> 依赖属性作为 <code>$property$</code> 属性的后端存储，这将为 动画、样式、绑定 等提供支持。
+/// 并提供默认值 $defaultValue$ 。
+/// </summary>
+public static readonly DependencyProperty $property$Property =
+    DependencyProperty.Register(nameof($property$), typeof($type$), typeof($ownerClass$), new PropertyMetadata($defaultValue$));
 
+#endregion
 $end$]]>
             </Code>
         </Snippet>
