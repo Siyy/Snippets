@@ -2,10 +2,11 @@
 <CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
     <CodeSnippet Format="1.0.0">
         <Header>
-            <Title>Define an attached DependencyProperty</Title>
-            <Shortcut>propa</Shortcut>
-            <Description>Code snippet for an attached property using DependencyProperty as the backing store</Description>
-            <Author>Microsoft Corporation</Author>
+            <Title>定义一个附加的依赖项属性。</Title>
+            <Shortcut>propa_cn</Shortcut>
+            <!--<Description>Code snippet for an attached property using DependencyProperty as the backing store</Description>-->
+            <Description>使用依赖项属性作为后端存储的附加属性的代码段。</Description>
+            <Author>久永</Author>
             <SnippetTypes>
                 <SnippetType>Expansion</SnippetType>
             </SnippetTypes>
@@ -14,43 +15,54 @@
             <Declarations>
                 <Literal>
                     <ID>type</ID>
-                    <ToolTip>Property Type</ToolTip>
+                    <ToolTip>类型</ToolTip>
                     <Default>int</Default>
                 </Literal>
                 <Literal>
                     <ID>property</ID>
-                    <ToolTip>Property Name</ToolTip>
+                    <ToolTip>名称</ToolTip>
                     <Default>MyProperty</Default>
                 </Literal>
                 <Literal>
                     <ID>ownerclass</ID>
-                    <ToolTip>The owning class of this Property.  Typically the class that it is declared in.</ToolTip>
+                    <!--<ToolTip>The owning class of this Property.  Typically the class that it is declared in.</ToolTip>-->
+                    <ToolTip>此附加属性的所在类。通常就是定义了这个附加属性的类。</ToolTip>
                     <Default>ownerclass</Default>
                 </Literal>
                 <Literal>
                     <ID>defaultvalue</ID>
-                    <ToolTip>The default value for this property.</ToolTip>
+                    <ToolTip>默认值</ToolTip>
                     <Default>0</Default>
                 </Literal>
+                <Literal>
+                  <ID>caption</ID>
+                  <ToolTip>附加属性的文档注释。</ToolTip>
+                  <Default>新建的依赖属性</Default>
+                </Literal>
+              <Literal>
+                <ID>obj_type</ID>
+                <ToolTip>依赖对象类型。</ToolTip>
+                <Default>DependencyObject</Default>
+              </Literal>
             </Declarations>
-            <Code Language="csharp">
-                <![CDATA[
-                
-public static $type$ Get$property$(DependencyObject obj)
+            <Code Language="csharp"><!--$type$ -->
+                <![CDATA[#region 附加属性：$property$ - $caption$。
+
+public static $type$ Get$property$($obj_type$ obj)
 {
-    return ($type$)obj.GetValue($property$Property);
+	return ($type$)obj.GetValue($property$Property);
 }
 
-public static void Set$property$(DependencyObject obj, $type$ value)
+public static void Set$property$($obj_type$ obj, $type$ value)
 {
-    obj.SetValue($property$Property, value);
+	obj.SetValue($property$Property, value);
 }
 
-// Using a DependencyProperty as the backing store for $property$.  This enables animation, styling, binding, etc...
+// 使用依赖项属性作为 $property$ 的支持存储。 以便是实现 动画、样式、绑定 等...
 public static readonly DependencyProperty $property$Property =
-    DependencyProperty.RegisterAttached("$property$", typeof($type$), typeof($ownerclass$), new PropertyMetadata($defaultvalue$));
+	DependencyProperty.RegisterAttached("$property$", typeof($type$), typeof($ownerclass$), new PropertyMetadata($defaultvalue$));
 
-$end$]]>
+	#endregion$end$]]>
             </Code>
         </Snippet>
     </CodeSnippet>
